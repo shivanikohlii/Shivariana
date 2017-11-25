@@ -40,7 +40,6 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
    // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
-  console.log("Hello. Received a message");
   let body = req.body;
 
   // Checks this is an event from a page subscription
@@ -51,12 +50,9 @@ app.post('/webhook', (req, res) => {
 
      // Gets the body of the webhook event
     let webhook_event = entry.messaging[0];
-    console.log("hibiib");
 
     // Get the sender PSID
     let sender_psid = webhook_event.sender.id;
-    console.log('Are you even listening');
-    console.log('Sender PSID: ' + sender_psid);
 
     if(webhook_event.message){
       handleMessage(sender_psid, webhook_event.message);
@@ -77,7 +73,7 @@ app.post('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
   if(received_message.text){
     var response = { 
-      "text": 'You sent the message: "${received_message.text}". Now send me an image!'
+      "text": 'You sent the message:' + received_message.text + 'Now send me an image!'
     };
     callSendAPI(sender_psid, response);
   }
