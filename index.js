@@ -2,13 +2,14 @@
 
 // Imports dependencies and set up http server
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+const giphyKey =proess.env.GIPHY_KEY
 const 
   express = require('express'),
   bodyParser = require('body-parser'),
   app = express().use(bodyParser.json()), // creates express http server
   request = require('request'),
   apiai = require('apiai');
-  var giphyKey = "F6WSyw0UZiqexa9yV3fDC4tw6seYXXAO"; 
+  //var giphyKey = "F6WSyw0UZiqexa9yV3fDC4tw6seYXXAO"; 
   var dialogFlow = apiai("00840f0c253041fc85622c1829327831");
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
