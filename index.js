@@ -80,7 +80,7 @@ function handleMessage(sender_psid, received_message) {
       sessionId: 'YOUGOTTHIS'
   });
   dialogFlowR.on('response', function(dfResp) {
-      responseText = dfResp.result.fulfillment.speech;
+      var responseText = dfResp.result.fulfillment.speech;
       response = {
           "text": "" + responseText
       };
@@ -88,7 +88,7 @@ function handleMessage(sender_psid, received_message) {
       callSendAPI(sender_psid, response);
   });
   dialogFlowR.on('error', function(error) {
-      var responseText = "LOL SOMETHING WENT WRONG";
+      responseText = "LOL SOMETHING WENT WRONG";
       response = {
           "text": "" + responseText
       };
