@@ -132,7 +132,7 @@ function handleMessage(sender_psid, received_message) {
   }); 
 }
 function createMessage(sender_psid, keyphrase) {
-  var giphyLink = $.get("http://api.giphy.com/v1/gifs/search?q="+keyphrase+"&api_key="+giphyKey+"&limit=1");
+  var giphyLink = "http://api.giphy.com/v1/gifs/search?q="+keyphrase+"&api_key="+giphyKey+"&limit=1";
   request(giphyLink, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var imgURL = JSON.parse(body).data.image_url;
