@@ -136,7 +136,7 @@ function createMessage(sender_psid, keyphrase) {
     //console.log(response);
     if (!error) {
       console.log("[1/2] Response from giphy received");
-      var imgURL = JSON.parse(body).data.image_url;
+      var imgURL = body.data.url;
       if (imgURL) {
          var response_message = {
           "attachment": {
@@ -146,11 +146,19 @@ function createMessage(sender_psid, keyphrase) {
             }
           }
         };
+      }
+      else {
+        var response_message = {
+          "attachment": {
+            "type": "image",
+            "payload": {
+              "url": "https://media.giphy.com/media/kQg7fQMvVD5Ha/giphy.gif"
+            }
+          }
+        };
+      }
         console.log("[2/2] Message to sender prepared");
         callSendAPI(sender_psid, response_message);
-      } else {
-        callSendAPI(sender_psid, { text: "Couldn't find gif with phrase: " + keyphrase });
-      }
     } else {
       callSendAPI(sender_psid, { text: "Oops, something went wrong" });
     }
