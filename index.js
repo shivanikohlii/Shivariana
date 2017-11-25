@@ -76,8 +76,13 @@ app.post('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
   console.log('In handle message');
   if(received_message.text){
-    if(received_message.text == 'GIF')
-        createMessage(sender_psid, received_message);
+    var intentArray = {}; 
+    intentArray = received_message.text.split(",");   
+    if(intentArray[0].toLowerCase() == 'gif' ||intentArray[0].toLowerCase() == 'gifs'){
+        console.log('In Gif');
+        var gifmessage = intentArray[1];
+        createMessage(sender_psid, gifmessage);
+      }
     else{
       var dialogFlowR = dialogFlow.textRequest(received_message.text, {
       sessionId: 'YOUGOTTHIS'
