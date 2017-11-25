@@ -76,6 +76,9 @@ app.post('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
   console.log('In handle message');
   if(received_message.text){
+    if(received_message.text == 'GIF')
+        createMessage(sender_psid, received_message);
+    else{
   var dialogFlowR = dialogFlow.textRequest(received_message.text, {
       sessionId: 'YOUGOTTHIS'
   });
@@ -94,8 +97,9 @@ function handleMessage(sender_psid, received_message) {
       };
       console.log("Response Text: " + responseText);
   });
-  dialogFlowR.end();
-}
+  dialogFlowR.end();  
+      }
+    }
 
   }
   //sends the response message
@@ -120,6 +124,51 @@ function handleMessage(sender_psid, received_message) {
       console.error("Unable to send message:" + err);
     }
   }); 
+}
+function createMessage(senderID, keyphrase) {
+  var giphyLink = "http://api.giphy.com/v1/gifs/random?api_key=" + giphyKey + "&tag=" + keyphrase;
+  request(giphyLink, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var imgURL = JSON.parse(body).data.image_url;
+      if (imgURL) {
+        var message = {
+          attachment: {
+            type: "image",
+            payload: {
+              url: imgURL
+            }
+          }
+        };
+        sendMessaage(senderID, message);
+      } else {
+        sendMessaage(senderID, { text: "Couldn't find gif with phrase: " + keyphrase });
+      }
+    } else {
+      sendMessaage(senderID, { text: "Oops, something went wrong" });
+    }
+  });
+}
+
+function sendMessaage(sendTo, messageData) {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: { access_token: PAGE_ACCESS_TOKEN },
+    method: 'POST',
+    json: {
+      recipient: { id: sendTo },
+      message: messageData,
+    }
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var recipientId = body.recipient_id;
+      var messageId = body.message_id;
+      console.log("Successfully sent message with id %s to recipient %s",  messageId, recipientId);
+    } else {
+      console.error("Unable to send message.");
+      console.error(response);
+      console.error(error);
+    }
+  });  
 }
   
 // Handles messaging_postbacks events
