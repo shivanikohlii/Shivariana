@@ -64,7 +64,7 @@ app.post('/webhook', (req, res) => {
    });
    // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
- 
+  console.log("Hello. Received a message");
   let body = req.body;
 
   // Checks this is an event from a page subscription
