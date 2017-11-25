@@ -133,10 +133,10 @@ function handleMessage(sender_psid, received_message) {
 function createMessage(sender_psid, keyphrase) {
   var giphyLink = "http://api.giphy.com/v1/gifs/search?q="+keyphrase+"&api_key="+giphyKey+"&limit=1";
   request(giphyLink, function (error, response, body) {
-    console.log(response);
+    //console.log(response);
     if (!error) {
       console.log("[1/2] Response from giphy received");
-      var imgURL = JSON.parse(body).data.url;
+      var imgURL = JSON.parse(body).data[0].url;
       console.log(imgURL);
       if (imgURL) {
          var response_message = {
