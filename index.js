@@ -82,7 +82,6 @@ function handleMessage(sender_psid, received_message) {
         console.log('In Gif');
         var gifmessage = intentArray[1];
         createMessage(sender_psid, gifmessage);
-        gifmessage.end();
       }
     else{
       var dialogFlowR = dialogFlow.textRequest(received_message.text, {
