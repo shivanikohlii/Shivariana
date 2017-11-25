@@ -8,7 +8,7 @@ const
   app = express().use(bodyParser.json()), // creates express http server
   request = require('request'),
   apiai = require('apiai');
-  var giphyKey = require("F6WSyw0UZiqexa9yV3fDC4tw6seYXXAO"); 
+  var giphyKey = "F6WSyw0UZiqexa9yV3fDC4tw6seYXXAO"; 
   var dialogFlow = apiai("00840f0c253041fc85622c1829327831");
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -132,7 +132,7 @@ function handleMessage(sender_psid, received_message) {
   }); 
 }
 function createMessage(sender_psid, keyphrase) {
-  var giphyLink = "http://api.giphy.com/v1/gifs/random?api_key=" + giphyKey + "&tag=" + keyphrase;
+  var giphyLink = $.get("http://api.giphy.com/v1/gifs/search?q="+keyphrase+"&api_key="+giphyKey+"&limit=1");
   request(giphyLink, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var imgURL = JSON.parse(body).data.image_url;
