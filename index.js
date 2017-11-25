@@ -133,8 +133,9 @@ function handleMessage(sender_psid, received_message) {
 function createMessage(sender_psid, keyphrase) {
   var giphyLink = "http://api.giphy.com/v1/gifs/search?q="+keyphrase+"&api_key="+giphyKey+"&limit=1";
   request(giphyLink, function (error, response, body) {
-    console.log(response);
-    if (!error) {
+    //console.log(response);
+    if (response.data) {
+      console.log("[1/2] Response from giphy received");
       var imgURL = JSON.parse(body).data.image_url;
       if (imgURL) {
          var response_message = {
@@ -145,6 +146,7 @@ function createMessage(sender_psid, keyphrase) {
             }
           }
         };
+        console.log("[2/2] Message to sender prepared");
         callSendAPI(sender_psid, response_message);
       } else {
         callSendAPI(sender_psid, { text: "Couldn't find gif with phrase: " + keyphrase });
@@ -160,4 +162,28 @@ function createMessage(sender_psid, keyphrase) {
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
 
+}
+
+
+function sendPayload(sender_psid, payload) {
+// Construct the message body
+  let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": payload
+  }
+  // Send the HTTP request to the Messenger Platform
+  request({
+  "uri": "https://graph.facebook.com/v2.6/me/messages",
+  "qs": { "access_token": PAGE_ACCESS_TOKEN },
+  "method": "POST",
+  "json": request_body
+  }, (err, res, body) => {
+  if (!err) {
+    console.log('message sent!')
+  } else {
+    console.error("Unable to send message:" + err);
+  }
+  }); 
 }
