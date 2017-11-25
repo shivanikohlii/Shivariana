@@ -8,7 +8,7 @@ const
   app = express().use(bodyParser.json()), // creates express http server
   request = require('request'),
   apiai = require('apiai');
-  var giphyKey = require('./config.json').giphy; 
+  var giphyKey = giphy("F6WSyw0UZiqexa9yV3fDC4tw6seYXXAO"); 
   var dialogFlow = apiai("00840f0c253041fc85622c1829327831");
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -147,10 +147,10 @@ function createMessage(sender_psid, keyphrase) {
         };
         callSendAPI(sender_psid, response_message);
       } else {
-        sendMessaage(sender_psid, { text: "Couldn't find gif with phrase: " + keyphrase });
+        callSendAPI(sender_psid, { text: "Couldn't find gif with phrase: " + keyphrase });
       }
     } else {
-      sendMessaage(sender_psid, { text: "Oops, something went wrong" });
+      callSendAPI(sender_psid, { text: "Oops, something went wrong" });
     }
   });
 }
