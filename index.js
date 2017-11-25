@@ -18,7 +18,7 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
    
      // Your verify token. Should be a random string.
      let VERIFY_TOKEN = "12211965-got-this"
-       
+     var giphyKey = require('./config.json').giphy; 
      // Parse the query params
      let mode = req.query['hub.mode'];
      let token = req.query['hub.verify_token'];
@@ -79,7 +79,7 @@ function handleMessage(sender_psid, received_message) {
     if(received_message.text == 'GIF')
         createMessage(sender_psid, received_message);
     else{
-  var dialogFlowR = dialogFlow.textRequest(received_message.text, {
+      var dialogFlowR = dialogFlow.textRequest(received_message.text, {
       sessionId: 'YOUGOTTHIS'
   });
   dialogFlowR.on('response', function(dfResp) {
