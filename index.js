@@ -74,6 +74,7 @@ app.post('/webhook', (req, res) => {
 });
    // Handles messages events
 function handleMessage(sender_psid, received_message) {
+  console.log('In handle message');
   if(received_message.text){
   var dialogFlowR = dialogFlow.textRequest(received_message.text, {
       sessionId: 'YOUGOTTHIS'
