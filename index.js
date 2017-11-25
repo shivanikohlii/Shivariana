@@ -8,7 +8,7 @@ const
   app = express().use(bodyParser.json()), // creates express http server
   request = require('request'),
   apiai = require('apiai');
-
+  var giphyKey = require(config.json()).giphy; 
   var dialogFlow = apiai("00840f0c253041fc85622c1829327831");
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -18,7 +18,7 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
    
      // Your verify token. Should be a random string.
      let VERIFY_TOKEN = "12211965-got-this"
-     var giphyKey = require('./config.json').giphy; 
+  
      // Parse the query params
      let mode = req.query['hub.mode'];
      let token = req.query['hub.verify_token'];
