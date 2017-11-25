@@ -135,8 +135,9 @@ function createMessage(sender_psid, keyphrase) {
   request(giphyLink, function (error, response, body) {
     //console.log(response);
     if (!error) {
+      var random = Math.floor(Math.random() * 10)
       console.log("[1/2] Response from giphy received");
-      var imgURL = JSON.parse(body).data[0].images.original.url;
+      var imgURL = JSON.parse(body).data[random].images.original.url;
       console.log(imgURL);
       if (imgURL) {
         var response_message = {
