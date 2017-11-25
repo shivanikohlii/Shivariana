@@ -131,7 +131,7 @@ function handleMessage(sender_psid, received_message) {
   }); 
 }
 function createMessage(sender_psid, keyphrase) {
-  var giphyLink = "http://api.giphy.com/v1/gifs/search?q="+keyphrase+"&api_key="+giphyKey;
+  var giphyLink = "http://api.giphy.com/v1/gifs/search?q="+keyphrase+"&api_key="+giphyKey+"&limit=10";
   request(giphyLink, function (error, response, body) {
     //console.log(response);
     if (!error) {
