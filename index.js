@@ -9,7 +9,7 @@ const
   request = require('request'),
   apiai = require('apiai');
 
-  var dialogflow = apiai("00840f0c253041fc85622c1829327831");
+  var dialogFlow = apiai("00840f0c253041fc85622c1829327831");
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
@@ -93,7 +93,7 @@ function handleMessage(sender_psid, received_message) {
       };
       console.log("Response Text: " + responseText);
   });
-  dfReq.end();
+  dialogFlowR.end();
 }
 
   }
