@@ -139,11 +139,12 @@ function createMessage(sender_psid, keyphrase) {
       var imgURL = JSON.parse(body).data[0].url;
       console.log(imgURL);
       if (imgURL) {
-         var response_message = {
+        console.log("Ola fangulay");
+        var response_message = {
           "attachment": {
             "type": "image",
             "payload": {
-              "url": ""+imgURL
+              "url": "https://media.giphy.com/media/kQg7fQMvVD5Ha/giphy.gif"
             }
           }
         };
