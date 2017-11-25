@@ -88,7 +88,7 @@ function handleMessage(sender_psid, received_message) {
       callSendAPI(sender_psid, response);
   });
   dialogFlowR.on('error', function(error) {
-      responseText = "LOL SOMETHING WENT WRONG";
+      var responseText = "LOL SOMETHING WENT WRONG";
       response = {
           "text": "" + responseText
       };
