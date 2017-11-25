@@ -98,6 +98,7 @@ app.post('/webhook', (req, res) => {
 });
    // Handles messages events
 function handleMessage(sender_psid, received_message) {
+  console.log("In handle messages")
   if(received_message.text){
     response = { 
       "text": 'You sent the message: "${received_message.text}". Now send me an image!'
