@@ -79,6 +79,7 @@ app.post('/webhook', (req, res) => {
 
     // Get the sender PSID
     let sender_psid = webhook_event.sender.id;
+    console.log('Are you even listening');
     console.log('Sender PSID: ' + sender_psid);
 
     if(webhook_event.message){
@@ -98,7 +99,7 @@ app.post('/webhook', (req, res) => {
 });
    // Handles messages events
 function handleMessage(sender_psid, received_message) {
-  console.log("In handle messages")
+  console.log('In handle messages');
   if(received_message.text){
     response = { 
       "text": 'You sent the message: "${received_message.text}". Now send me an image!'
