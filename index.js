@@ -8,8 +8,8 @@ const
   app = express().use(bodyParser.json()), // creates express http server
   request = require('request'),
   dialogflow = require('apiai');
-  
-  var dialogflow = apiai("00840f0c253041fc85622c1829327831");
+
+  dialogflow = apiai("00840f0c253041fc85622c1829327831");
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
