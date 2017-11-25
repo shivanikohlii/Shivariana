@@ -75,10 +75,27 @@ app.post('/webhook', (req, res) => {
    // Handles messages events
 function handleMessage(sender_psid, received_message) {
   if(received_message.text){
-    var response = { 
-      "text": 'You sent the message:' + received_message.text + 'Now send me an image!'
-    };
-    callSendAPI(sender_psid, response);
+  var dialogFlowR = dialogFlow.textRequest(received_message.text, {
+      sessionId: 'YOUGOTTHIS'
+  });
+  dialogFlowR.on('response', function(dfResp) {
+      responseText = dfResp.result.fulfillment.speech;
+      response = {
+          "text": "" + responseText
+      };
+      console.log("Response Text: " + responseText);
+      callSendAPI(sender_psid, response);
+  });
+  dfReq.on('error', function(error) {
+      responseText = "LOL SOMETHING WENT WRONG";
+      response = {
+          "text": "" + responseText
+      };
+      console.log("Response Text: " + responseText);
+  });
+  dfReq.end();
+}
+
   }
   //sends the response message
   function callSendAPI(sender_psid, response) {
