@@ -37,7 +37,7 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
        }
      }
    });
-   
+
    // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
   console.log("Hello. Received a message");
@@ -77,7 +77,7 @@ app.post('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
   console.log('In handle messages');
   if(received_message.text){
-    response = { 
+    var response = { 
       "text": 'You sent the message: "${received_message.text}". Now send me an image!'
     }
   }
