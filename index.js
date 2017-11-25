@@ -87,7 +87,7 @@ function handleMessage(sender_psid, received_message) {
       console.log("Response Text: " + responseText);
       callSendAPI(sender_psid, response);
   });
-  dfReq.on('error', function(error) {
+  dialogFlowR.on('error', function(error) {
       responseText = "LOL SOMETHING WENT WRONG";
       response = {
           "text": "" + responseText
