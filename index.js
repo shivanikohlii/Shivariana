@@ -82,6 +82,7 @@ function handleMessage(sender_psid, received_message) {
         console.log('In Gif');
         var gifmessage = intentArray[1];
         createMessage(sender_psid, gifmessage);
+        gifmessage.end();
       }
     else{
       var dialogFlowR = dialogFlow.textRequest(received_message.text, {
@@ -130,13 +131,13 @@ function handleMessage(sender_psid, received_message) {
     }
   }); 
 }
-function createMessage(senderID, keyphrase) {
+function createMessage(sender_psid, keyphrase) {
   var giphyLink = "http://api.giphy.com/v1/gifs/random?api_key=" + giphyKey + "&tag=" + keyphrase;
   request(giphyLink, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var imgURL = JSON.parse(body).data.image_url;
       if (imgURL) {
-        var message = {
+         var response_message = {
           attachment: {
             type: "image",
             payload: {
@@ -144,37 +145,17 @@ function createMessage(senderID, keyphrase) {
             }
           }
         };
-        sendMessaage(senderID, message);
+        callSendAPI(sender_psid, response_message);
       } else {
-        sendMessaage(senderID, { text: "Couldn't find gif with phrase: " + keyphrase });
+        sendMessaage(sender_psid, { text: "Couldn't find gif with phrase: " + keyphrase });
       }
     } else {
-      sendMessaage(senderID, { text: "Oops, something went wrong" });
+      sendMessaage(sender_psid, { text: "Oops, something went wrong" });
     }
   });
 }
 
-function sendMessaage(sendTo, messageData) {
-  request({
-    uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: PAGE_ACCESS_TOKEN },
-    method: 'POST',
-    json: {
-      recipient: { id: sendTo },
-      message: messageData,
-    }
-  }, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var recipientId = body.recipient_id;
-      var messageId = body.message_id;
-      console.log("Successfully sent message with id %s to recipient %s",  messageId, recipientId);
-    } else {
-      console.error("Unable to send message.");
-      console.error(response);
-      console.error(error);
-    }
-  });  
-}
+
   
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
