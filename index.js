@@ -81,7 +81,7 @@ function handleMessage(sender_psid, received_message) {
   });
   dialogFlowR.on('response', function(dfResp) {
       var responseText = dfResp.result.fulfillment.speech;
-      response = {
+      var response = {
           "text": "" + responseText
       };
       console.log("Response Text: " + responseText);
