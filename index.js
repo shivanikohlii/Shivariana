@@ -139,10 +139,10 @@ function createMessage(sender_psid, keyphrase) {
       var imgURL = JSON.parse(body).data.image_url;
       if (imgURL) {
          var response_message = {
-          attachment: {
-            type: "image",
-            payload: {
-              url: imgURL
+          "attachment": {
+            "type": "image",
+            "payload": {
+              "url": imgURL
             }
           }
         };
