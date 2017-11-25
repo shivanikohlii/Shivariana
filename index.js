@@ -137,6 +137,7 @@ function createMessage(sender_psid, keyphrase) {
     if (!error) {
       console.log("[1/2] Response from giphy received");
       var imgURL = JSON.parse(body).data.url;
+      console.log(imgURL);
       if (imgURL) {
          var response_message = {
           "attachment": {
